@@ -4,45 +4,90 @@
 
 struct beyblade {char name[10]; unsigned int size; char color[10];};
 
-struct beyblade construct_beyblade(char * color_input) {
+struct beyblade construct_beyblade(char * new_name, char * new_color) {
+	//creates a new beyblade named Carl woth random size and color of choice
+
 	struct beyblade Carl;
-	strcpy(Carl.name, "Carl");
-	strcpy(Carl.color, color_input);
-	//Carl.name = "Carl";
+
+	strcpy(Carl.name, new_name);
+	
+	strcpy(Carl.color, new_color);
+	
 	Carl.size = rand() % 100;
-	//Carl.color = color_input;
+	
 	return Carl;
 }
 
-int print_beyblade(struct beyblade gene) {
-	printf("Name: %s\n", gene.name);
-	printf("Size: %dmm\n", gene.size);
-	printf("Colr: %s\n", gene.color);
+int print_beyblade(struct beyblade instance ) {
+	//prints out the name, size, and color
+
+	printf("Name: %s\n", instance.name);
+	printf("Size: %dmm\n", instance.size);
+	printf("Colr: %s\n", instance.color);
 	printf("\n");
 	return 0;
 }
 
-int beyblade_change_size(int add, struct beyblade* ralph) {
-	ralph->size += add;
+int beyblade_change_name(int place, char letter, struct beyblade * instance) {
+	//changes name to input name
+
+	char * x = instance->name;
+	while(place--) {x++;}
+
+	*x = letter;
+
+	return 0;
 }
 
-int beyblade_change_color(char * color_input, struct beyblade * john) {
-	strcpy(john->color, color_input);
+int beyblade_change_size(int add, struct beyblade * instance ) {
+	//changes size by amount of mm input
+
+	instance->size += add;
+	return 0;
+}
+
+int beyblade_change_color(char * new_color, struct beyblade * instance ) {
+	//chanegs color of beyblade input to the input color
+
+	strcpy(instance->color, new_color);
+	return 0;
 }
 
 int main()
 {
-	struct beyblade Maggie = construct_beyblade("Grey");
-	struct beyblade * ref = &Maggie;
+	printf("LET IT RIP!\n");
 
-	print_beyblade(Maggie);
+	//seed the random number
+	srand(time(NULL));
+
+	//create a new beyblade called Spinner
+	struct beyblade Spinner = construct_beyblade("Carl","Grey");
 	
+	//ref is a pointer that holds the adress of Spinner
+	struct beyblade * ref = &Spinner;
+
+	//print Spinner
+	print_beyblade(Spinner);
+
+	//alter the name of Spinner (10 character max)
+	beyblade_change_name(3,'b', ref);
+	printf("Carl->Carb\n");
+
+	//name should now be James
+	print_beyblade(Spinner);
+	
+	//alter the color of Spinner (10 character max)
 	beyblade_change_color("Blue", ref);
+	printf("Grey->Blue\n");
 	
-	print_beyblade(Maggie);
+	//color should now be "Blue"
+	print_beyblade(Spinner);
 	
-	beyblade_change_size(1, ref);
+	//alter the size of Spinner
+	beyblade_change_size(8, ref);
+	printf("add  eight\n");
 	
-	print_beyblade(Maggie);
+	//size shoule be 8 larger
+	print_beyblade(Spinner);
 	return 0;
 }
