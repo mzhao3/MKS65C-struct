@@ -3,12 +3,15 @@
 #include <time.h>
 
 const char *colors[] = {"Yellow","Green","Blue", "Red", "Black", "Orange", "White", "Pink", "Brown"};
-const char *names[] = {"Carl", "Bob", "Pegasus", "Sagittario", "Leone", "Libra", "Donald"};
+const char *names[] = {"Carl", "Scott", "Pegasus", "Sagittario", "Leone", "Libra", "Donald"};
 
 struct beyblade {char name[15]; unsigned int size; char color[10];};
 
 	//creates a new beyblade named Carl with random size and color
 struct beyblade construct_beyblade() {
+
+	srand(time(NULL));
+	//seed the random number
 
 	struct beyblade Carl;
 	//printf("%s\n", names[ (rand() % 7)]);
@@ -22,7 +25,7 @@ struct beyblade construct_beyblade() {
 }
 
 	//prints out the name, size, and color
-int print_beyblade(struct beyblade instance ) {
+int print_beyblade(struct beyblade instance) {
 
 	printf("Name: %s\n", instance.name);
 	printf("Size: %dmm\n", instance.size);
@@ -60,9 +63,6 @@ int main()
 {
 	printf("\n===========================================\n");
 	printf("LET IT RIP!\n\n");
-
-	//seed the random number
-	srand(time(NULL));
 
 	//create a new beyblade called Spinner
 	struct beyblade Spinner = construct_beyblade();
