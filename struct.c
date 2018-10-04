@@ -2,24 +2,27 @@
 #include <string.h>
 #include <time.h>
 
-struct beyblade {char name[10]; unsigned int size; char color[10];};
+const char *colors[] = {"Yellow","Green","Blue", "Red", "Black", "Orange", "White", "Pink", "Brown"};
+const char *names[] = {"Carl", "Bob", "Pegasus", "Sagittario", "Leone", "Libra", "Donald"};
 
-struct beyblade construct_beyblade(char * new_name, char * new_color) {
-	//creates a new beyblade named Carl woth random size and color of choice
+struct beyblade {char name[15]; unsigned int size; char color[10];};
+
+	//creates a new beyblade named Carl with random size and color
+struct beyblade construct_beyblade() {
 
 	struct beyblade Carl;
+	//printf("%s\n", names[ (rand() % 7)]);
+	strcpy(Carl.name, names[ (rand() % 7)]);
 
-	strcpy(Carl.name, new_name);
-	
-	strcpy(Carl.color, new_color);
-	
+	strcpy(Carl.color, colors[ (rand() % 9)]);
+
 	Carl.size = rand() % 100;
-	
+
 	return Carl;
 }
 
-int print_beyblade(struct beyblade instance ) {
 	//prints out the name, size, and color
+int print_beyblade(struct beyblade instance ) {
 
 	printf("Name: %s\n", instance.name);
 	printf("Size: %dmm\n", instance.size);
@@ -28,8 +31,8 @@ int print_beyblade(struct beyblade instance ) {
 	return 0;
 }
 
+ // changes specified letter at specified location in the name
 int beyblade_change_name(int place, char letter, struct beyblade * instance) {
-	//changes name to input name
 
 	char * x = instance->name;
 	while(place--) {x++;}
@@ -39,15 +42,15 @@ int beyblade_change_name(int place, char letter, struct beyblade * instance) {
 	return 0;
 }
 
-int beyblade_change_size(int add, struct beyblade * instance ) {
 	//changes size by amount of mm input
+int beyblade_change_size(int add, struct beyblade * instance ) {
 
 	instance->size += add;
 	return 0;
 }
 
+ //changes color of beyblade input to the input color
 int beyblade_change_color(char * new_color, struct beyblade * instance ) {
-	//chanegs color of beyblade input to the input color
 
 	strcpy(instance->color, new_color);
 	return 0;
@@ -55,38 +58,40 @@ int beyblade_change_color(char * new_color, struct beyblade * instance ) {
 
 int main()
 {
-	printf("LET IT RIP!\n");
+	printf("\n===========================================\n");
+	printf("LET IT RIP!\n\n");
 
 	//seed the random number
 	srand(time(NULL));
 
 	//create a new beyblade called Spinner
-	struct beyblade Spinner = construct_beyblade("Carl","Grey");
-	
+	struct beyblade Spinner = construct_beyblade();
+
 	//ref is a pointer that holds the adress of Spinner
 	struct beyblade * ref = &Spinner;
 
+	printf("Original beyblade\n");
 	//print Spinner
 	print_beyblade(Spinner);
 
 	//alter the name of Spinner (10 character max)
 	beyblade_change_name(3,'b', ref);
-	printf("Carl->Carb\n");
+	printf("Change the fourth letter to b\n");
 
 	//name should now be James
 	print_beyblade(Spinner);
-	
+
 	//alter the color of Spinner (10 character max)
 	beyblade_change_color("Blue", ref);
-	printf("Grey->Blue\n");
-	
+	printf("Change color to blue\n");
+
 	//color should now be "Blue"
 	print_beyblade(Spinner);
-	
+
 	//alter the size of Spinner
 	beyblade_change_size(8, ref);
-	printf("add  eight\n");
-	
+	printf("Add eight to size\n");
+
 	//size shoule be 8 larger
 	print_beyblade(Spinner);
 	return 0;
