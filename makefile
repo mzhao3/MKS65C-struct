@@ -1,5 +1,5 @@
-all: run
-	./a.out
-
-run: struct.o
+all: struct.o
 	gcc struct.c
+
+run:
+	./a.out
